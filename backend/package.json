@@ -1,0 +1,46 @@
+{
+  "name": "express-mesto-gha",
+  "version": "1.0.0",
+  "description": "[![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml) [![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml)\r # Проект Mesto фронтенд + бэкенд",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "deploy:sync": "scp -r * mariasha@84.252.137.200:/home/mariasha/mesto-api-full/backend",
+    "deploy:install": "ssh mariasha@84.252.137.200 cd /home/mariasha/mesto-api-full/backend; npm install --legacy-peer-deps",
+    "deploy:restart": "ssh mariasha@84.252.137.200 pm2 restart app",
+    "deploy": "npm run deploy:sync && npm run deploy:install && npm run deploy:restart"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kirimarchy/express-mesto-gha.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kirimarchy/express-mesto-gha/issues"
+  },
+  "homepage": "https://github.com/Kirimarchy/express-mesto-gha#readme",
+  "devDependencies": {
+    "eslint": "^8.1.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "celebrate": "^15.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "express-winston": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.0",
+    "validator": "^13.7.0",
+    "winston": "^3.8.1"
+  },
+  "keywords": []
+}
