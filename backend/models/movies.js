@@ -18,7 +18,7 @@ const MovieSchema = new mongoose.Schema({
   },
 
   year: {
-    type: Number,
+    type: String,
     required: true,
   },
 
@@ -43,24 +43,27 @@ const MovieSchema = new mongoose.Schema({
   },
 
   owner: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     ref: 'user',
     required: false,
   },
 
   movieId: {
-    type: String,
-    ref: 'user',
+    type: Number,
+    required: true,
+    unique: true,
   },
 
   nameRU: {
     type: String,
     required: true,
+    unique: true,
   },
 
   nameEN: {
     type: String,
     required: true,
+    unique: true,
   },
 
 });

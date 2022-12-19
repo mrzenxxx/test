@@ -4,41 +4,25 @@ const SomeWentWrongError = require('../errors/something-went-wrong-err');
 const NotFoundError = require('../errors/not-found-err');
 const AccessDeniedError = require('../errors/access-denied-err');
 
-module.exports.getMovies = async (req, res) => {
-  const movies = await Movie.find({})
-    .where('owner').equals(req.user._id)
-    .populate(['owner']);
-
-  res.send(movies);
+module.exports.getMovies = async (req, res, next) => {
+  try {
+    const movies = await Movie.find({})
+      .where('owner').equals(req.user._id)
+      .populate(['owner']);
+    res.send(movies);
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      next(new SomeWentWrongError(`Некорректные данные: ${err}`));
+    } else {
+      next(err);
+    }
+  }
 };
 
 module.exports.createMovie = (req, res, next) => {
-  const {
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN,
-  } = req.body;
 
   Movie.create({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN,
+    ...req.body,
     owner: req.user._id,
   })
     .then((movie) => res.send(movie))
